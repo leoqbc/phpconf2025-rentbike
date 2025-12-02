@@ -1,0 +1,36 @@
+DIA 1
+modules/Reservation/Application/ReservationService.php
+    public function __construct(
+        protected RepositoryInterface $repository,
+        protected PaymentServiceInterface $paymentService
+    ) {
+    }
+
+    // Payment Data
+    $paymentDTO = new PaymentDTO();
+    $paymentDTO->id = Uuid::uuid7()->toString();
+
+    // Processamento do pagamento / PaymentServiceInterface em Shared
+    $this->paymentService->process($paymentDTO);
+
+    // Infrastructure: salvando a reserva (banco local)
+    $this->repository->save($reservation);
+
+    return $reservation;
+
+----------------------------------------------------------------------------------------------
+
+app/Providers/AppServiceProvider.php
+    $this->app->bind(ReservationService::class, function ($container) {
+        return new ReservationService(
+            new ReservationRepository(),
+            $container->get(PaymentServiceInterface::class),
+        );
+    });
+
+    $this->app->bind(PaymentServiceInterface::class, function () {
+        return new PaymentService(
+            new PagarmePayment(),
+            new PaymentRepository()
+        );
+    });
