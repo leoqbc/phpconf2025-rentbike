@@ -28,6 +28,7 @@ readonly class ReservationService
             // Domain Validation: Regras de negócio
             $reservation->canBeCreated();
 
+            // Payment Data
             $paymentDTO = new PaymentDTO();
             $paymentDTO->id = Uuid::uuid7()->toString();
 
