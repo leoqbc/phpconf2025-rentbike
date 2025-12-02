@@ -5,18 +5,9 @@ namespace RentBike\Modules\Reservation\Application;
 use Ramsey\Uuid\Uuid;
 use RentBike\Modules\Reservation\Domain\Exception\CreateReservationException;
 use RentBike\Modules\Reservation\Domain\Reservation;
-use RentBike\Modules\Shared\Application\DTOs\PaymentDTO;
-use RentBike\Modules\Shared\Application\PaymentServiceInterface;
-use RentBike\Modules\Shared\Infrastructure\Repository\RepositoryInterface;
 
 readonly class ReservationService
 {
-    public function __construct(
-        protected RepositoryInterface $repository,
-        protected PaymentServiceInterface $paymentService
-    ) {
-    }
-
     /**
      * @param Reservation $reservation
      * @return Reservation
@@ -25,18 +16,18 @@ readonly class ReservationService
     public function create(Reservation $reservation): Reservation
     {
         try {
+            // Define an external id to retrieve payment
+            $reservation->externalPaymentId = Uuid::uuid7()->toString();
+
             // Domain Validation: Regras de negócio
             $reservation->canBeCreated();
 
-            // Payment Data
-            $paymentDTO = new PaymentDTO();
-            $paymentDTO->id = Uuid::uuid7()->toString();
+            // 1. Payment Data
 
-            // Processamento do pagamento / PaymentServiceInterface em Shared
-            $this->paymentService->process($paymentDTO);
+            // 2. Processamento do pagamento / PaymentServiceInterface em Shared
 
-            // Infrastructure: salvando a reserva (banco local)
-            $this->repository->save($reservation);
+            // 3. Infrastructure: salvando a reserva (banco local)
+
 
             return $reservation;
         } catch (\Exception $exception) {

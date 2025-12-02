@@ -30,6 +30,7 @@ class ReservationController extends Controller
         try {
             $reservation = new Reservation();
 
+            // Validar input
             $request->validate([
                 'user_id' => 'required',
                 'stock_id' => 'required',
@@ -37,15 +38,12 @@ class ReservationController extends Controller
                 'delivery_date' => 'required',
             ]);
 
-            $reservation->externalPaymentId = Uuid::uuid7()->toString();
-
-            // Validar input
             $reservation->fill($request->all());
 
             $savedReservation = $this->reservationService->create($reservation);
 
             return [
-                'reservation_id' => $savedReservation->id->getValue()
+                'reservation_id' => 99
             ];
         } catch(\Throwable $exception) {
             return response()->json([

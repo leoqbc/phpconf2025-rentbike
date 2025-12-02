@@ -17,19 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ReservationService::class, function ($container) {
-            return new ReservationService(
-                new ReservationRepository(),
-                $container->get(PaymentServiceInterface::class),
-            );
-        });
+        // Adicionar dependências ReservationService::class
 
-        $this->app->bind(PaymentServiceInterface::class, function () {
-            return new PaymentService(
-                new PagarmePayment(),
-                new PaymentRepository()
-            );
-        });
+        // Adicionar dependências PaymentServiceInterface::class
     }
 
     /**
