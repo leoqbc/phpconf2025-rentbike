@@ -13,11 +13,10 @@ class PaymentRepository implements RepositoryInterface
     public function save(Entity $entity): void
     {
         // TODO: Implement save() method.
-        dd($entity);
     }
 
     public function findById(Id $id): Entity
     {
-        return new Payment(new Id('PAY_CODE_TEST'));
+        return new Payment(new Id('PAY_CODE_TEST_FIND'));
     }
 }

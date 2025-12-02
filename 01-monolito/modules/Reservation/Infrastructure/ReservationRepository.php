@@ -22,6 +22,8 @@ class ReservationRepository implements  RepositoryInterface
         // Implementação com pouca camada
         $reservation = new \App\Models\Reservation($entity->toArray());
         $reservation->saveOrFail();
+
+        $entity->id = new Id($reservation['id']);
     }
 
     public function findById(Id $id): Entity
