@@ -1,0 +1,15 @@
+services:
+  server:
+    image: serversideup/php:8.4-fpm-nginx-alpine
+    ports:
+      - "80:8080"
+    volumes:
+      - .:/var/www/html
+
+  mariadb:
+    image: mariadb:11
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpassword
+      MARIADB_DATABASE: rentbike

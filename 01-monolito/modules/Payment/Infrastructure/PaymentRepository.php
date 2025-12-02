@@ -1,0 +1,23 @@
+<?php
+
+namespace RentBike\Modules\Payment\Infrastructure;
+
+use RentBike\Modules\Payment\Domain\Payment;
+use RentBike\Modules\Shared\Domain\Entity;
+use RentBike\Modules\Shared\Domain\ValueObject\Id;
+use RentBike\Modules\Shared\Infrastructure\Repository\RepositoryInterface;
+
+class PaymentRepository implements RepositoryInterface
+{
+
+    public function save(Entity $entity): void
+    {
+        // TODO: Implement save() method.
+        dd($entity);
+    }
+
+    public function findById(Id $id): Entity
+    {
+        return new Payment(new Id('PAY_CODE_TEST'));
+    }
+}

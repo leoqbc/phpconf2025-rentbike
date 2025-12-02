@@ -1,0 +1,14 @@
+GET http://localhost/api/motorcycles
+
+###
+
+POST http://localhost/api/reservations
+Accept: application/json
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "stock_id": 8,
+    "days": 3,
+    "delivery_date": "2025-12-05 20:00:00"
+}
