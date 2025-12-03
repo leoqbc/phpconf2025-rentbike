@@ -1,0 +1,7 @@
+services:
+  payment:
+    image: serversideup/php:8.4-fpm-nginx-alpine
+    ports:
+      - "8081:8080"
+    volumes:
+      - .:/var/www/html
