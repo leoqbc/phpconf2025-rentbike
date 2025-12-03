@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Uuid;
 use RentBike\Modules\Reservation\Application\ReservationService;
 use RentBike\Modules\Reservation\Domain\Reservation;
 
