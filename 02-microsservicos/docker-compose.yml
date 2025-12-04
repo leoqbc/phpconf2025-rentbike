@@ -5,3 +5,11 @@ services:
       - "8081:8080"
     volumes:
       - .:/var/www/html
+
+  api-db:
+    image: mariadb:11
+    ports:
+      - "3307:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
+      MARIADB_DATABASE: paymentapi
