@@ -2,7 +2,6 @@
 
 namespace RentBike\Modules\Reservation\Application;
 
-use Ramsey\Uuid\Uuid;
 use RentBike\Modules\Reservation\Domain\Exception\CreateReservationException;
 use RentBike\Modules\Reservation\Domain\Reservation;
 use RentBike\Modules\Shared\Application\DTOs\PaymentDTO;
@@ -28,30 +27,26 @@ readonly class ReservationService
      */
     public function create(ReservationDto $reservationDto): Reservation
     {
-        try {
-            $user = $this->userService->getUser($reservationDto->userId);
-            $stock = $this->stockService->getStock($reservationDto->stockId);
+        $user = $this->userService->getUser($reservationDto->userId);
+        $stock = $this->stockService->getStock($reservationDto->stockId);
 
-            $reservationEntity = new Reservation($user, $stock, $reservationDto->days);
+        $reservationEntity = new Reservation($user, $stock, $reservationDto->days);
 
-            // Domain Validation: Regras de negócio de Reservation
-            $reservationEntity->canBeCreated();
+        // Domain Validation: Regras de negócio de Reservation
+        $reservationEntity->canBeCreated();
 
-            // Payment Data
-            $paymentDTO = new PaymentDTO();
-            $paymentDTO->externalId = $reservationEntity->externalPaymentId;
-            $paymentDTO->amount = $reservationEntity->getRentCost();
+        // Payment Data
+        $paymentDTO = new PaymentDTO();
+        $paymentDTO->externalId = $reservationEntity->externalPaymentId;
+        $paymentDTO->amount = $reservationEntity->getRentCost();
 
-            // Processamento do pagamento / PaymentServiceInterface em Shared
-            $this->paymentService->process($paymentDTO);
+        // Processamento do pagamento / PaymentServiceInterface em Shared
+        $this->paymentService->process($paymentDTO);
 
-            // Infrastructure: salvando a reserva (banco local)
-            $this->repository->save($reservationEntity);
+        // Infrastructure: salvando a reserva (banco local)
+        $this->repository->save($reservationEntity);
 
-            return $reservationEntity;
-        } catch (\Exception $exception) {
-            throw new CreateReservationException($exception->getMessage());
-        }
+        return $reservationEntity;
     }
 
 }

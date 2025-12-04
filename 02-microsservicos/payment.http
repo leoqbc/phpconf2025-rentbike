@@ -1,0 +1,8 @@
+POST localhost:8081/process
+Content-Type: application/json
+Accept: application/json
+
+{
+  "external_id": "019aeb01-522c-7e71-a554-3942b36d0253",
+  "amount": 4590
+}

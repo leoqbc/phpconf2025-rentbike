@@ -1,6 +1,12 @@
 {
     "require": {
         "slim/slim": "^4.15",
-        "slim/psr7": "^1.8"
+        "slim/psr7": "^1.8",
+        "peroxide/container": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "RentBike\\Modules\\": "modules/"
+        }
     }
 }

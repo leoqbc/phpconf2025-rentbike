@@ -5,3 +5,8 @@ services:
       - "8081:8080"
     volumes:
       - .:/var/www/html
+
+networks:
+  default:
+    name: my-network
+    external: true

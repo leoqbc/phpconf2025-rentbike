@@ -13,3 +13,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: rootpassword
       MARIADB_DATABASE: rentbike
+
+networks:
+  default:
+    name: my-network
+    external: true
