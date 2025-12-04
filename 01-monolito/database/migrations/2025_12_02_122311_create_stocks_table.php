@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Motorcycle::class)->constrained();
             $table->integer('daily_price');
-            $table->enum('status', ['available', 'reserved'])->default('available');
+            $table->enum('status', ['AVAILABLE', 'RESERVED', 'PICKED_UP'])->default('AVAILABLE');
             $table->timestamps();
         });
     }

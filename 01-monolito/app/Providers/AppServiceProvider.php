@@ -9,6 +9,8 @@ use RentBike\Modules\Payment\Strategy\PagarmePayment;
 use RentBike\Modules\Reservation\Application\ReservationService;
 use RentBike\Modules\Reservation\Infrastructure\ReservationRepository;
 use RentBike\Modules\Shared\Application\PaymentServiceInterface;
+use RentBike\Modules\Stock\Application\StockService;
+use RentBike\Modules\User\Application\UserService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
             return new ReservationService(
                 new ReservationRepository(),
                 $container->get(PaymentServiceInterface::class),
+                new StockService(),
+                new UserService()
             );
         });
 

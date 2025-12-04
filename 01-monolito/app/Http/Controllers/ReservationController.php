@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
+use RentBike\Modules\Reservation\Application\ReservationDto;
 use RentBike\Modules\Reservation\Application\ReservationService;
+use RentBike\Modules\Reservation\Domain\Exception\CreateReservationException;
 use RentBike\Modules\Reservation\Domain\Reservation;
 
 class ReservationController extends Controller
@@ -28,8 +30,7 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         try {
-            $reservation = new Reservation();
-
+            // Validar input
             $request->validate([
                 'user_id' => 'required',
                 'stock_id' => 'required',
@@ -37,20 +38,20 @@ class ReservationController extends Controller
                 'delivery_date' => 'required',
             ]);
 
-            $reservation->externalPaymentId = Uuid::uuid7()->toString();
+            $reservationDto = new ReservationDto();
+            $reservationDto->fill($request->all());
 
-            // Validar input
-            $reservation->fill($request->all());
-
-            $savedReservation = $this->reservationService->create($reservation);
+            $savedReservation = $this->reservationService->create($reservationDto);
 
             return [
                 'reservation_id' => $savedReservation->id->getValue()
             ];
-        } catch(\Throwable $exception) {
+        } catch(CreateReservationException $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),
             ], 500);
+        } catch(\Exception $exception) {
+            throw new \Exception($exception->getMessage());
         }
     }
 
