@@ -48,7 +48,7 @@ class Reservation extends Entity
     public function getRentCost(): int
     {
         $amount = ($this->stock->dailyPrice / 100) * $this->days;
-        return round($amount, 2) / 100;
+        return round($amount, 2) * 100;
     }
 
     public function toArray(): array

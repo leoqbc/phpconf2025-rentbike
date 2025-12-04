@@ -10,7 +10,7 @@ class Stock extends Entity
 {
     public Id $motorcycleId;
 
-    public int $dailyPrice = 1200;
+    public int $dailyPrice;
 
     public Status $status = Status::AVAILABLE;
 
