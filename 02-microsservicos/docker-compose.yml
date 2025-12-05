@@ -13,3 +13,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: 123456
       MARIADB_DATABASE: paymentapi
+
+networks:
+  default:
+    name: my-network
+    external: true

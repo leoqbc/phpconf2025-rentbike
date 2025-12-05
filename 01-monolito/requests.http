@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
     "user_id": 1,
-    "stock_id": 9,
+    "stock_id": 4,
     "days": 3,
     "delivery_date": "2025-12-05 20:00:00"
 }

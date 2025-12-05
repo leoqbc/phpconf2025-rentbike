@@ -9,6 +9,7 @@ use RentBike\Modules\Shared\Infrastructure\Repository\RepositoryInterface;
 
 class PaymentRepository implements RepositoryInterface
 {
+    // Injeção de um PDO ou Strategy de Pesistencia
 
     public function save(Entity $entity): void
     {

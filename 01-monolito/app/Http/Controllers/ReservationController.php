@@ -49,7 +49,7 @@ class ReservationController extends Controller
         } catch(CreateReservationException $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),
-            ], 500);
+            ], 400);
         } catch(\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
